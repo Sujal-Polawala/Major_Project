@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "67a46bac84d23e6c83733d96"
+  },
+  "name": "Electronics",
+  "description": "Tvs Ac etc",
+  "icons": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a46be184d23e6c83733d99"
+  },
+  "name": "Outfits",
+  "description": "Men Female Clothes",
+  "icons": true,
+  "__v": 0
+}]
