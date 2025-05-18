@@ -42,7 +42,7 @@ Major_Project/
 | Frontend   | React.js, Tailwind CSS, Material UI         |
 | Backend    | Node.js, Express.js, Python                 |
 | Database   | MongoDB                                     |
-| AI Features| Python-based image processing (MediaPipe)   |
+| AI Features| Python-based image processing               |
 | Payment    | Stripe API                                  |
 | Dev Tools  | Git, GitHub, VS Code                        |
 
