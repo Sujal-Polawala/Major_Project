@@ -106,7 +106,7 @@ npm install
 npm start
 ```
 
-> 💡 Make sure MongoDB and Stripe keys are correctly configured in your `.env` files.
+> 💡 Make sure correctly configured in your `.env` files in all folders.
 
 
 ---
