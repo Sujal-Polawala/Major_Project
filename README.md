@@ -120,4 +120,4 @@ This project is licensed under the MIT License.
 ## 👥 Contributors
 - [Sujal Polawala](https://github.com/Sujal-Polawala)
 - [Sahil Rana](https://github.com/Ranasahil19)
-- [Rishi Kothari]
+- Rishi Kothari
