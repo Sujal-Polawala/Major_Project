@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaChevronRight } from "react-icons/fa";
 import NavTitle from "./NavTitle";
+import { API_BASE_URL } from "../../../../context/ApiConfig";
 
 const Category = ({ onCategoryFilter, clearFilters }) => {
   const [categories, setCategories] = useState([]);
@@ -11,7 +12,7 @@ const Category = ({ onCategoryFilter, clearFilters }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/filters");
+        const response = await axios.get(`${API_BASE_URL}/api/filters`);
         setCategories(response.data.categories);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -73,4 +74,3 @@ const Category = ({ onCategoryFilter, clearFilters }) => {
 };
 
 export default Category;
-
