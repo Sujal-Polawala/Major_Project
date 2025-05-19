@@ -3,14 +3,12 @@ import { motion } from "framer-motion";
 import {
   FaSearch,
   FaUser,
-  FaCaretDown,
   FaShoppingCart,
   FaSignOutAlt,
   FaBox,
   FaSignInAlt,
   FaMicrophone,
   FaUserPlus,
-  FaCamera,
   FaHeart,
 } from "react-icons/fa";
 import Flex from "../../designLayouts/Flex";
@@ -18,11 +16,10 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
 import Fuse from "fuse.js";
-import * as tf from "@tensorflow/tfjs";
-import * as mobilenet from "@tensorflow-models/mobilenet";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { resetWishlist } from "../../../redux/orebiSlice";
 import ProductSearch from "../../AiProductSearch/productSearch";
+import { API_BASE_URL } from "../../../context/ApiConfig";
 
 const HeaderBottom = ({setSearchResults}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -35,7 +32,6 @@ const HeaderBottom = ({setSearchResults}) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
-  const [showSearchBar, setShowSearchBar] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [suggestedWords, setSuggestedWords] = useState([]);
   const recognitionRef = useRef(null);
@@ -139,7 +135,7 @@ const HeaderBottom = ({setSearchResults}) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/products");
+        const response = await axios.get(`${API_BASE_URL}/api/products`);
         setAllProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -149,18 +145,18 @@ const HeaderBottom = ({setSearchResults}) => {
     fetchProducts();
   }, []);
 
-  const fetchCartCount = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/api/cart/count/${userId}`
-      );
-      setCartCount(response.data.count);
-    } catch (error) {
-      console.error("Failed to fetch cart count:", error);
-    }
-  };
-
   useEffect(() => {
+    const fetchCartCount = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/api/cart/count/${userId}`
+        );
+        setCartCount(response.data.count);
+      } catch (error) {
+        console.error("Failed to fetch cart count:", error);
+      }
+    };
+
     const intervalId = setInterval(() => {
       if (userId) {
         fetchCartCount();
@@ -169,6 +165,27 @@ const HeaderBottom = ({setSearchResults}) => {
 
     return () => clearInterval(intervalId);
   }, [userId]);
+
+  // const fetchCartCount = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:5000/api/cart/count/${userId}`
+  //     );
+  //     setCartCount(response.data.count);
+  //   } catch (error) {
+  //     console.error("Failed to fetch cart count:", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     if (userId) {
+  //       fetchCartCount();
+  //     }
+  //   }, 1000);
+
+  //   return () => clearInterval(intervalId);
+  // }, [userId]);
 
   const fuse = new Fuse(allProducts, {
     keys: ["title", "category"],  // Now searching in both title and category
