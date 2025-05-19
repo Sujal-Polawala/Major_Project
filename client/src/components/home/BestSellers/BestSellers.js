@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Heading from "../Products/Heading";
 import Product from "../Products/Product";
 import axios from "axios"; // Import axios for API calls
+import { API_BASE_URL } from "../../../context/ApiConfig";
 
 const BestSellers = () => {
   const [bestSellers, setBestSellers] = useState([]); // State to store bestseller products
@@ -11,7 +12,7 @@ const BestSellers = () => {
   useEffect(() => {
     const fetchBestSellers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/products/men"); // Replace with your backend API URL
+        const response = await axios.get(`${API_BASE_URL}/api/products/men`); // Replace with your backend API URL
         setBestSellers(response.data); // Set the fetched data to state
       } catch (error) {
         console.error("Error fetching bestseller products", error);
