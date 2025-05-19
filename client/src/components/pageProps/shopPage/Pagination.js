@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import axios from "axios";
 import Product from "../../home/Products/Product";
+import { API_BASE_URL } from "../../../context/ApiConfig";
 
 const Pagination = ({ itemsPerPage, selectedBadge, selectedCategory, setSelectedBadge, setSelectedCategory, selectedPriceRange }) => {
   const [items, setItems] = useState([]);
@@ -55,7 +56,7 @@ const Pagination = ({ itemsPerPage, selectedBadge, selectedCategory, setSelected
         query.append("maxPrice", selectedPriceRange.priceTwo);
       }
       const response = await axios.get(
-        `http://localhost:5000/api/products?${query.toString()}`
+        `${API_BASE_URL}/api/products?${query.toString()}`
       );
       setItems(response.data);
       setItemOffset(0);
