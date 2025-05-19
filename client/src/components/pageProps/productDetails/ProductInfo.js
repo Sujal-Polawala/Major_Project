@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/orebiSlice";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import axios from "axios";
 import { CartPopup } from "../../popup/PopupMsg";
 import { AuthContext } from "../../../context/AuthContext";
+import { API_BASE_URL } from "../../../context/ApiConfig";
 
 const ProductInfo = ({ productInfo }) => {
   const { state } = useContext(AuthContext);
@@ -14,7 +14,7 @@ const ProductInfo = ({ productInfo }) => {
 
   const handleAddToCart = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/cart", {
+      const response = await axios.post(`${API_BASE_URL}/api/cart`, {
         productId: productInfo._id,
         quantity: 1,
         userId: user.userId,
@@ -41,8 +41,6 @@ const ProductInfo = ({ productInfo }) => {
   if (!productInfo) {
     return <div className="text-center text-gray-500">Loading...</div>;
   }
-
-  const rating = productInfo?.rating?.rate ? productInfo.rating : { rate: 0, count: 0 };
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white border rounded-xl shadow-lg">
