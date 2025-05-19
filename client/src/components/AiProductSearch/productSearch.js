@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaImages } from 'react-icons/fa';
 import loader from '../../assets/images/loader.gif';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from "../../context/ApiConfig";
 
 function ProductSearch({ close  }) {
     const [loading, setLoading] = useState(false);
@@ -17,7 +18,7 @@ function ProductSearch({ close  }) {
         const formData = new FormData();
         formData.append('image', file);
         try {
-            const response = await fetch('http://localhost:5000/search-product', { method: 'POST', body: formData });
+            const response = await fetch(`${API_BASE_URL}/search-product`, { method: 'POST', body: formData });
             if (response.ok) {
                 const data = await response.json();
                 
