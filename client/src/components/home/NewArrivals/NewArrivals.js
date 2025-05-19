@@ -5,6 +5,7 @@ import Product from "../Products/Product";
 import axios from "axios";
 import SampleNextArrow from "./SampleNextArrow";
 import SamplePrevArrow from "./SamplePrevArrow";
+import { API_BASE_URL } from "../../../context/ApiConfig";
 
 const NewArrivals = () => {
   const [newArrival, setNewArrival] = useState([]);
@@ -14,7 +15,7 @@ const NewArrivals = () => {
     const fetchNewArrival = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/products/glasses"
+          `${API_BASE_URL}/api/products/glasses`
         ); // Replace with your backend API URL
         setNewArrival(response.data); // Set the fetched data to state
         setLoading(false);
