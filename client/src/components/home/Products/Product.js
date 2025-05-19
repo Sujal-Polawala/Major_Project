@@ -3,7 +3,6 @@ import { BsSuitHeartFill } from "react-icons/bs";
 import { GiReturnArrow } from "react-icons/gi";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdOutlineLabelImportant } from "react-icons/md";
-import Image from "../../designLayouts/Image";
 import Badge from "./Badge";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +12,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import { CartPopup, PopupMsg } from "../../popup/PopupMsg";
 import { io } from "socket.io-client";
 import Loader from "../../../assets/images/Virtual clothes try loader.gif";
+import { API_BASE_URL } from "../../../context/ApiConfig";
 
 const Product = (props) => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const Product = (props) => {
   let tryOnSocket;
   const startTryOnSocket = () => {
     if (!tryOnSocket) {
-      tryOnSocket = io("http://127.0.0.1:5000");
+      tryOnSocket = io(API_BASE_URL);
     }
   };
 
@@ -48,7 +48,7 @@ const Product = (props) => {
   
   const handleAddToCart = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/cart", {
+      const response = await axios.post(`${API_BASE_URL}/api/cart`, {
         productId: props._id,
         quantity: 1,
         userId: user.userId,
@@ -182,7 +182,7 @@ const Product = (props) => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:5000/wishlist/add",
+        `${API_BASE_URL}/wishlist/add`,
         { 
           productId: props._id ,
           userId: user.userId
@@ -211,7 +211,7 @@ const Product = (props) => {
   const handleRemoveFromWishList =async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/wishlist/remove",
+        `${API_BASE_URL}/wishlist/remove`,
         { 
           productId: props._id,
           userId: user.userId
@@ -308,4 +308,3 @@ const Product = (props) => {
 };
 
 export default Product;
-
