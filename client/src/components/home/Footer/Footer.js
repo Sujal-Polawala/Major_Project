@@ -6,6 +6,7 @@ import { paymentCard } from "../../../assets/images";
 import Image from "../../designLayouts/Image";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../../../context/ApiConfig";
 
 const Footer = () => {
   const [emailInfo, setEmailInfo] = useState("");
@@ -16,7 +17,7 @@ const Footer = () => {
   useEffect(() => {
     const fetchBadges = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/badge");
+        const response = await axios.get(`${API_BASE_URL}/api/badge`);
         setBadges(response.data);
       } catch (error) {
         console.error("Error fetching badges:", error);
@@ -54,7 +55,7 @@ const Footer = () => {
             </p>
             <ul className="flex items-center gap-2">
               <a
-                href="https://www.youtube.com/@reactjsBD"
+                href="https://www.youtube.com/@sujalpolawala3577"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -63,7 +64,7 @@ const Footer = () => {
                 </li>
               </a>
               <a
-                href="https://github.com/noorjsdivs"
+                href="https://github.com/Sujal-Polawala"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -72,7 +73,7 @@ const Footer = () => {
                 </li>
               </a>
               <a
-                href="https://www.facebook.com/Noorlalu143/"
+                href="https://www.facebook.com/sujal.polawala"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -81,7 +82,7 @@ const Footer = () => {
                 </li>
               </a>
               <a
-                href="https://www.linkedin.com/in/noor-mohammad-ab2245193/"
+                href="https://www.linkedin.com/in/sujalpolawala"
                 target="_blank"
                 rel="noreferrer"
               >
