@@ -3,6 +3,7 @@ import { BsGridFill } from "react-icons/bs";
 import { ImList } from "react-icons/im";
 import { GoTriangleDown } from "react-icons/go";
 import axios from "axios";
+import { API_BASE_URL } from "../../../context/ApiConfig";
 
 const ProductBanner = ({ onBadgeFilter, itemsPerPageFromBanner, setSelectedBadge, setSelectedCategory, onCategoryFilter, clearAllFilters, onPriceFilter, setSelectedPriceRange }) => {
   const [badges, setBadges] = useState([]);
@@ -13,7 +14,7 @@ const ProductBanner = ({ onBadgeFilter, itemsPerPageFromBanner, setSelectedBadge
   useEffect(() => {
     const fetchBadges = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/badge");
+        const response = await axios.get(`${API_BASE_URL}/api/badge`);
         setBadges(response.data);
       } catch (error) {
         console.error("Error fetching badges:", error);
