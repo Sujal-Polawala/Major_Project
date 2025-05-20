@@ -17,7 +17,7 @@ require('dotenv').config();
 const app = express();
 const server = http.createServer(app)
 // Middlewares
-const allowedOrigins = ["http://localhost:3000", "http://localhost:3001"];
+const allowedOrigins = ["https://major-project-xrh6.vercel.app", "http://localhost:3001"];
 
 const io = new Server(server, {
     cors:{
