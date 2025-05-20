@@ -17,7 +17,7 @@ require('dotenv').config();
 const app = express();
 const server = http.createServer(app)
 // Middlewares
-const allowedOrigins = ["https://major-project-xrh6.vercel.app", "http://localhost:3001"];
+const allowedOrigins = ["https://major-project-three-beta.vercel.app", "http://localhost:3001"];
 
 const io = new Server(server, {
     cors:{
@@ -67,7 +67,7 @@ const apolloServer = new ApolloServer({
 async function startApolloServer() {
     await apolloServer.start();
     apolloServer.applyMiddleware({ app, path: '/graphql' });
-    console.log(`🚀 Apollo Server ready at http://localhost:${PORT}/graphql`);
+    console.log(`🚀 Apollo Server ready at https://major-project-three-beta.vercel.app/graphql`);
 }
 
 startApolloServer();
@@ -140,4 +140,3 @@ const PORT = process.env.PORT || 5000;
 global.io = io;
 module.exports = { app, server };
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
