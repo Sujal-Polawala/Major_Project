@@ -16,7 +16,7 @@ COPY . .
 RUN npm install
 
 # Install Python dependencies
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Create Supervisor config
 RUN mkdir -p /etc/supervisor/conf.d
