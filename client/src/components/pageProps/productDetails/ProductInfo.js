@@ -5,6 +5,7 @@ import axios from "axios";
 import { CartPopup } from "../../popup/PopupMsg";
 import { AuthContext } from "../../../context/AuthContext";
 import { API_BASE_URL } from "../../../config/ApiConfig";
+import SkeletonProductInfoCard from "../../../skeletons/productInfoSkeletonCard";
 
 const ProductInfo = ({ productInfo }) => {
   const { state } = useContext(AuthContext);
@@ -38,8 +39,9 @@ const ProductInfo = ({ productInfo }) => {
     }
   };
 
-  if (!productInfo) {
-    return <div className="text-center text-gray-500">Loading...</div>;
+  // Show skeleton while loading
+  if (!productInfo || Object.keys(productInfo).length === 0) {
+    return <SkeletonProductInfoCard />;
   }
 
   return (
