@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import Image from "../../designLayouts/Image";
 import { navBarList } from "../../../constants";
 import Flex from "../../designLayouts/Flex";
-import Logo from "../../../assets/images/LOGO.png"
+import Logo from "../../../assets/images/LOGO.png";
 import axios from "axios";
 import { logo } from "../../../assets/images";
 import { API_BASE_URL } from "../../../config/ApiConfig";
@@ -15,7 +15,7 @@ const Header = () => {
   const [showMenu, setShowMenu] = useState(true);
   const [sidenav, setSidenav] = useState(false);
   const [category, setCategory] = useState(false);
-  const [brand, setBrand] = useState(false);
+  const [badges, setBadges] = useState(false);
   const location = useLocation();
   useEffect(() => {
     let ResponsiveMenu = () => {
@@ -40,6 +40,19 @@ const Header = () => {
     };
 
     fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    const fetchBadges = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/api/badge`);
+        setBadges(response.data);
+      } catch (error) {
+        console.error("Error fetching badges:", error);
+      }
+    };
+
+    fetchBadges();
   }, []);
 
   return (
@@ -86,11 +99,7 @@ const Header = () => {
                   className="w-[80%] h-full relative"
                 >
                   <div className="w-full h-full bg-primeColor p-6">
-                    <img
-                      className="w-40 mb-6"
-                      src={logo}
-                      alt="logoLight"
-                    />
+                    <img className="w-40 mb-6" src={logo} alt="logoLight" />
                     <ul className="text-gray-200 flex flex-col gap-2">
                       {navBarList.map((item) => (
                         <li
@@ -122,42 +131,34 @@ const Header = () => {
                           transition={{ duration: 0.4 }}
                           className="text-sm flex flex-col gap-1"
                         >
-                          {category.map((_id, item) => (
-                            <li
-                              key={item._id}
-                              className="headerSedenavLi"
-                            >
-                              {item.name}
+                          {category.map((_id, name) => (
+                            <li key={_id} className="headerSedenavLi">
+                              {name}
                             </li>
                           ))}
-                          {/* <li className="headerSedenavLi">New Arrivals</li>
-                          <li className="headerSedenavLi">Gudgets</li>
-                          <li className="headerSedenavLi">Accessories</li>
-                          <li className="headerSedenavLi">Electronics</li>
-                          <li className="headerSedenavLi">Others</li> */}
                         </motion.ul>
                       )}
                     </div>
                     <div className="mt-4">
                       <h1
-                        onClick={() => setBrand(!brand)}
+                        onClick={() => setBadges(!badges)}
                         className="flex justify-between text-base cursor-pointer items-center font-titleFont mb-2"
                       >
                         Shop by Brand
-                        <span className="text-lg">{brand ? "-" : "+"}</span>
+                        <span className="text-lg">{badges ? "-" : "+"}</span>
                       </h1>
-                      {brand && (
+                      {badges && (
                         <motion.ul
                           initial={{ y: 15, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           transition={{ duration: 0.4 }}
                           className="text-sm flex flex-col gap-1"
                         >
-                          <li className="headerSedenavLi">New Arrivals</li>
-                          <li className="headerSedenavLi">Mens</li>
-                          <li className="headerSedenavLi">Womens</li>
-                          <li className="headerSedenavLi">shoes</li>
-                          <li className="headerSedenavLi">BestSellers</li>
+                          {badges.map((badge, index) => (
+                            <li key={index} className="headerSedenavLi">
+                              {badge}
+                            </li>
+                          ))}
                         </motion.ul>
                       )}
                     </div>
