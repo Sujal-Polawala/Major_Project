@@ -7,7 +7,9 @@ import Image from "../../designLayouts/Image";
 import { navBarList } from "../../../constants";
 import Flex from "../../designLayouts/Flex";
 import Logo from "../../../assets/images/LOGO.png"
-import logoLight from "../../../assets/images/logoLight.png"
+import axios from "axios";
+import { logo } from "../../../assets/images";
+import { API_BASE_URL } from "../../../config/ApiConfig";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(true);
@@ -25,6 +27,19 @@ const Header = () => {
     };
     ResponsiveMenu();
     window.addEventListener("resize", ResponsiveMenu);
+  }, []);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/api/filters`);
+        setCategory(response.data.categories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   return (
@@ -73,7 +88,7 @@ const Header = () => {
                   <div className="w-full h-full bg-primeColor p-6">
                     <img
                       className="w-40 mb-6"
-                      src={logoLight}
+                      src={logo}
                       alt="logoLight"
                     />
                     <ul className="text-gray-200 flex flex-col gap-2">
@@ -107,11 +122,19 @@ const Header = () => {
                           transition={{ duration: 0.4 }}
                           className="text-sm flex flex-col gap-1"
                         >
-                          <li className="headerSedenavLi">New Arrivals</li>
+                          {category.map((_id, item) => (
+                            <li
+                              key={item._id}
+                              className="headerSedenavLi"
+                            >
+                              {item.name}
+                            </li>
+                          ))}
+                          {/* <li className="headerSedenavLi">New Arrivals</li>
                           <li className="headerSedenavLi">Gudgets</li>
                           <li className="headerSedenavLi">Accessories</li>
                           <li className="headerSedenavLi">Electronics</li>
-                          <li className="headerSedenavLi">Others</li>
+                          <li className="headerSedenavLi">Others</li> */}
                         </motion.ul>
                       )}
                     </div>
@@ -131,10 +154,10 @@ const Header = () => {
                           className="text-sm flex flex-col gap-1"
                         >
                           <li className="headerSedenavLi">New Arrivals</li>
-                          <li className="headerSedenavLi">Gudgets</li>
-                          <li className="headerSedenavLi">Accessories</li>
-                          <li className="headerSedenavLi">Electronics</li>
-                          <li className="headerSedenavLi">Others</li>
+                          <li className="headerSedenavLi">Mens</li>
+                          <li className="headerSedenavLi">Womens</li>
+                          <li className="headerSedenavLi">shoes</li>
+                          <li className="headerSedenavLi">BestSellers</li>
                         </motion.ul>
                       )}
                     </div>
