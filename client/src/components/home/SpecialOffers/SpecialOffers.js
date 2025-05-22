@@ -1,54 +1,90 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import Slider from "react-slick";
 import Heading from "../Products/Heading";
 import Product from "../Products/Product";
-// import {
-//   spfOne,
-//   spfTwo,
-//   spfThree,
-//   spfFour,
-// } from "../../../assets/images/index";
 import axios from "axios";
+import SampleNextArrow from "./SampleNextArrow";
+import SamplePrevArrow from "./SamplePrevArrow";
 import { API_BASE_URL } from "../../../config/ApiConfig";
+import SkeletonCard from "../../../skeletons/productSkeletonCard";
 
 const SpecialOffers = () => {
-  const [specialOffers, setSpecialOffers] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [specialOffers, setspecialOffers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => { 
+  useEffect(() => {
     const fetchSpecialOffers = async () => {
-      setLoading(true);
       try {
-        const response = await axios.get(`${API_BASE_URL}/api/products/women`);
-        setSpecialOffers(response.data);
+        const response = await axios.get(`${API_BASE_URL}/api/products/women`); // Replace with your backend API URL
+        setspecialOffers(response.data); // Set the fetched data to state
+        setLoading(false);
       } catch (error) {
-        console.error(error);
-      } finally {
+        console.error("Error fetching new arrival products", error);
         setLoading(false);
       }
     };
     fetchSpecialOffers();
   }, []);
+
+  const settings = {
+    infinite: false, // Change to false to test
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 769,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+    ],
+  };
+
   return (
-    <div className="w-full pb-20">
-      <Heading heading="Special Offers" />
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lgl:grid-cols-3 xl:grid-cols-4 gap-10">
-        {loading ? (
-          <div className="w-full h-20 bg-gray-200 rounded-md animate-pulse"></div>
-        ) : (
-          specialOffers.slice(0,4).map((product, index) => (
-            <Product
-              key={index}
-              _id={product._id}
-              image={product.image}
-              title={product.title}
-              price={product.price}
-              badge={product.badge}
-              des={product.description}
-              category={product.category}
-            />
-          ))
-        )}
-      </div>
+    <div className="w-full pb-16">
+      <Heading heading="New Arrivals" />
+      <Slider {...settings}>
+        {loading
+          ? [...Array(4)].map((_, index) => (
+              <div key={index} className="px-2">
+                <SkeletonCard />
+              </div>
+            ))
+          : specialOffers.map((product) => (
+              <div className="px-2" key={product.id}>
+                <Product
+                  _id={product._id}
+                  image={product.image}
+                  title={product.title}
+                  price={product.price}
+                  badge={product.badge}
+                  des={product.description}
+                  category={product.category}
+                />
+              </div>
+            ))}
+      </Slider>
     </div>
   );
 };
