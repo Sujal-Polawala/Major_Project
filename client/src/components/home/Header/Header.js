@@ -14,6 +14,8 @@ import { API_BASE_URL } from "../../../config/ApiConfig";
 const Header = () => {
   const [showMenu, setShowMenu] = useState(true);
   const [sidenav, setSidenav] = useState(false);
+  const [showCategory, setShowCategory] = useState(false);
+  const [showBadges, setShowBadges] = useState(false);
   const [category, setCategory] = useState([]);
   const [badges, setBadges] = useState([]);
   const location = useLocation();
@@ -99,12 +101,12 @@ const Header = () => {
                   transition={{ duration: 0.5 }}
                   className="w-[80%] h-full relative"
                 >
-                  <div className="w-full h-full bg-primeColor p-6">
+                  <div className="w-full h-full bg-white p-6">
                     <img className="w-40 h-20 mb-6 object-cover" src={Logo} alt="TryNBuy" />
                     <ul className="text-gray-200 flex flex-col gap-2">
                       {navBarList.map((item) => (
                         <li
-                          className="font-normal hover:font-bold items-center text-lg text-gray-200 hover:underline underline-offset-[4px] decoration-[1px] hover:text-white md:border-r-[2px] border-r-gray-300 hoverEffect last:border-r-0"
+                          className="font-normal hover:font-bold items-center text-lg text-gray-200 hover:underline underline-offset-[4px] decoration-[1px] hover:text-gray-400 md:border-r-[2px] border-r-gray-300 hoverEffect last:border-r-0"
                           key={item._id}
                         >
                           <NavLink
@@ -119,7 +121,7 @@ const Header = () => {
                     </ul>
                     <div className="mt-4">
                       <h1
-                        onClick={() => setCategory(!category)}
+                        onClick={() => setShowCategory(!showCategory)}
                         className="flex justify-between text-base cursor-pointer items-center font-titleFont mb-2"
                       >
                         Shop by Category{" "}
@@ -142,7 +144,7 @@ const Header = () => {
                     </div>
                     <div className="mt-4">
                       <h1
-                        onClick={() => setBadges(!badges)}
+                        onClick={() => setShowBadges(!showBadges)}
                         className="flex justify-between text-base cursor-pointer items-center font-titleFont mb-2"
                       >
                         Shop by Badge
