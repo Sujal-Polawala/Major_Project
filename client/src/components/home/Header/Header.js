@@ -14,8 +14,8 @@ import { API_BASE_URL } from "../../../config/ApiConfig";
 const Header = () => {
   const [showMenu, setShowMenu] = useState(true);
   const [sidenav, setSidenav] = useState(false);
-  const [category, setCategory] = useState(false);
-  const [badges, setBadges] = useState(false);
+  const [category, setCategory] = useState([]);
+  const [badges, setBadges] = useState([]);
   const location = useLocation();
   useEffect(() => {
     let ResponsiveMenu = () => {
