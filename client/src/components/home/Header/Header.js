@@ -7,7 +7,7 @@ import Image from "../../designLayouts/Image";
 import { navBarList } from "../../../constants";
 import Flex from "../../designLayouts/Flex";
 import Logo from "../../../assets/images/LOGO.png";
-import Logo1 from "../../../assets/images/logo (2).png";
+import Logo1 from "../../../assets/images/logoNav.png";
 import axios from "axios";
 // import { logo } from "../../../assets/images";
 import { API_BASE_URL } from "../../../config/ApiConfig";
@@ -101,7 +101,7 @@ const Header = () => {
                   className="w-[80%] h-full relative"
                 >
                   <div className="w-full h-full bg-primeColor p-6">
-                    <img className="w-40 mb-6" src={Logo1} alt="logoLight" />
+                    <img className="w-40 mb-6" src={Logo1} alt="TryNBuy" />
                     <ul className="text-gray-200 flex flex-col gap-2">
                       {navBarList.map((item) => (
                         <li
