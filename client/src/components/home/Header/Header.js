@@ -7,7 +7,6 @@ import Image from "../../designLayouts/Image";
 import { navBarList } from "../../../constants";
 import Flex from "../../designLayouts/Flex";
 import Logo from "../../../assets/images/LOGO.png";
-import Logo1 from "../../../assets/images/StyleVerse.png";
 import axios from "axios";
 // import { logo } from "../../../assets/images";
 import { API_BASE_URL } from "../../../config/ApiConfig";
@@ -93,7 +92,7 @@ const Header = () => {
               className="inline-block md:hidden cursor-pointer w-8 h-6 absolute top-6 right-4"
             />
             {sidenav && (
-              <div className="fixed top-0 left-0 w-full h-screen bg-black text-gray-200 bg-opacity-80 z-50">
+              <div className="fixed top-0 left-0 w-full h-screen bg-white text-gray-200 bg-opacity-80 z-50">
                 <motion.div
                   initial={{ x: -300, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -101,7 +100,7 @@ const Header = () => {
                   className="w-[80%] h-full relative"
                 >
                   <div className="w-full h-full bg-primeColor p-6">
-                    <img className="w-40 mb-6 object-cover" src={Logo1} alt="TryNBuy" />
+                    <img className="w-40 h-20 mb-6 object-cover" src={Logo} alt="TryNBuy" />
                     <ul className="text-gray-200 flex flex-col gap-2">
                       {navBarList.map((item) => (
                         <li
