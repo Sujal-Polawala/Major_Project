@@ -94,7 +94,7 @@ const Header = () => {
               className="inline-block md:hidden cursor-pointer w-8 h-6 absolute top-6 right-4"
             />
             {sidenav && (
-              <div className="fixed top-0 left-0 w-full h-screen bg-white text-gray-200 bg-opacity-80 z-50">
+              <div className="fixed top-0 left-0 w-full h-screen bg-white text-gray-600 bg-opacity-80 z-50">
                 <motion.div
                   initial={{ x: -300, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -102,11 +102,15 @@ const Header = () => {
                   className="w-[80%] h-full relative"
                 >
                   <div className="w-full h-full bg-white p-6">
-                    <img className="w-40 h-20 mb-6 object-cover" src={Logo} alt="TryNBuy" />
-                    <ul className="text-gray-200 flex flex-col gap-2">
+                    <img
+                      className="w-40 h-20 mb-6 object-cover"
+                      src={Logo}
+                      alt="TryNBuy"
+                    />
+                    <ul className="text-gray-600 flex flex-col gap-2">
                       {navBarList.map((item) => (
                         <li
-                          className="font-normal hover:font-bold items-center text-lg text-gray-200 hover:underline underline-offset-[4px] decoration-[1px] hover:text-gray-400 md:border-r-[2px] border-r-gray-300 hoverEffect last:border-r-0"
+                          className="font-normal hover:font-bold items-center text-lg text-gray-600 hover:underline underline-offset-[4px] decoration-[1px] hover:text-gray-800 md:border-r-[2px] border-r-gray-300 hoverEffect last:border-r-0"
                           key={item._id}
                         >
                           <NavLink
@@ -125,7 +129,7 @@ const Header = () => {
                         className="flex justify-between text-base cursor-pointer items-center font-titleFont mb-2"
                       >
                         Shop by Category{" "}
-                        <span className="text-lg">{category ? "-" : "+"}</span>
+                        <span className="text-lg">{showCategory ? "-" : "+"}</span>
                       </h1>
                       {category && (
                         <motion.ul
@@ -134,7 +138,7 @@ const Header = () => {
                           transition={{ duration: 0.4 }}
                           className="text-sm flex flex-col gap-1"
                         >
-                          {category.map(({name, index}) => (
+                          {category.map(({ name, index }) => (
                             <li key={index} className="headerSedenavLi">
                               {name}
                             </li>
@@ -148,7 +152,7 @@ const Header = () => {
                         className="flex justify-between text-base cursor-pointer items-center font-titleFont mb-2"
                       >
                         Shop by Badge
-                        <span className="text-lg">{badges ? "-" : "+"}</span>
+                        <span className="text-lg">{showBadges ? "-" : "+"}</span>
                       </h1>
                       {badges && (
                         <motion.ul
