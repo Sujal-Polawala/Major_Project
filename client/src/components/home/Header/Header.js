@@ -131,7 +131,7 @@ const Header = () => {
                         Shop by Category{" "}
                         <span className="text-lg">{showCategory ? "-" : "+"}</span>
                       </h1>
-                      {category && (
+                      {showCategory && (
                         <motion.ul
                           initial={{ y: 15, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
@@ -154,7 +154,7 @@ const Header = () => {
                         Shop by Badge
                         <span className="text-lg">{showBadges ? "-" : "+"}</span>
                       </h1>
-                      {badges && (
+                      {showBadges && (
                         <motion.ul
                           initial={{ y: 15, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
