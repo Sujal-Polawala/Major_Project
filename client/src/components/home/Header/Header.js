@@ -34,6 +34,7 @@ const Header = () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/api/filters`);
         setCategory(response.data.categories);
+        console.log(response.data.categories);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -131,8 +132,8 @@ const Header = () => {
                           transition={{ duration: 0.4 }}
                           className="text-sm flex flex-col gap-1"
                         >
-                          {category.map((_id, name) => (
-                            <li key={_id} className="headerSedenavLi">
+                          {category.map(({name, index}) => (
+                            <li key={index} className="headerSedenavLi">
                               {name}
                             </li>
                           ))}
@@ -144,7 +145,7 @@ const Header = () => {
                         onClick={() => setBadges(!badges)}
                         className="flex justify-between text-base cursor-pointer items-center font-titleFont mb-2"
                       >
-                        Shop by Brand
+                        Shop by Badge
                         <span className="text-lg">{badges ? "-" : "+"}</span>
                       </h1>
                       {badges && (
