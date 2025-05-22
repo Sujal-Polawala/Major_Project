@@ -3,8 +3,16 @@ import ReactPaginate from "react-paginate";
 import axios from "axios";
 import Product from "../../home/Products/Product";
 import { API_BASE_URL } from "../../../config/ApiConfig";
+import ProductsSkeletonCard from "../../../skeletons/productsSkeletonCard";
 
-const Pagination = ({ itemsPerPage, selectedBadge, selectedCategory, setSelectedBadge, setSelectedCategory, selectedPriceRange }) => {
+const Pagination = ({
+  itemsPerPage,
+  selectedBadge,
+  selectedCategory,
+  setSelectedBadge,
+  setSelectedCategory,
+  selectedPriceRange,
+}) => {
   const [items, setItems] = useState([]);
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -32,7 +40,7 @@ const Pagination = ({ itemsPerPage, selectedBadge, selectedCategory, setSelected
       query.append("minPrice", selectedPriceRange.priceOne);
       query.append("maxPrice", selectedPriceRange.priceTwo);
     }
-  
+
     const queryString = query.toString();
     if (queryString) {
       window.history.pushState(null, "", `?${queryString}`);
@@ -82,10 +90,10 @@ const Pagination = ({ itemsPerPage, selectedBadge, selectedCategory, setSelected
 
     if (badge) {
       setSelectedBadge(badge);
-    } 
+    }
     if (category) {
       setSelectedCategory(category);
-    } 
+    }
     fetchProducts();
   }, []);
 
@@ -103,24 +111,28 @@ const Pagination = ({ itemsPerPage, selectedBadge, selectedCategory, setSelected
   return (
     <div>
       {/* Product Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 mdl:gap-4 lg:gap-10">
-        {loading ? (
-          <div>Loading...</div>
-        ) : (
-          currentItems.map((item) => (
-            <div key={item._id} className="w-full">
-              <Product
-                _id={item._id}
-                image={item.image}
-                title={item.title}
-                price={item.price}
-                badge={item.badge}
-                des={item.description}
-                category={item.category}
-              />
-            </div>
-          ))
-        )}
+      <div
+        className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 mdl:gap-4 lg:gap-10 transition-opacity duration-700 ease-in-out
+    ${loading ? "opacity-60 pointer-events-none" : "opacity-100"}`}
+      >
+        {loading
+          ? // Show 12 or 24 based on itemsPerPage
+            Array.from({ length: itemsPerPage }, (_, index) => (
+              <ProductsSkeletonCard key={index} />
+            ))
+          : currentItems.map((item) => (
+              <div key={item._id} className="w-full">
+                <Product
+                  _id={item._id}
+                  image={item.image}
+                  title={item.title}
+                  price={item.price}
+                  badge={item.badge}
+                  des={item.description}
+                  category={item.category}
+                />
+              </div>
+            ))}
       </div>
 
       {/* Pagination Component */}
@@ -144,8 +156,14 @@ const Pagination = ({ itemsPerPage, selectedBadge, selectedCategory, setSelected
 
       {/* Page Status */}
       <p className="text-base font-normal text-lightText mt-4 text-center">
-        Products from {itemOffset + 1} to{" "}
-        {Math.min(itemOffset + itemsPerPage, items.length)} of {items.length}
+        {items.length === 0 && !loading
+          ? "No products found."
+          : loading
+          ? "Loading products..."
+          : `Products from ${itemOffset + 1} to ${Math.min(
+              itemOffset + itemsPerPage,
+              items.length
+            )} of ${items.length}`}
       </p>
     </div>
   );
