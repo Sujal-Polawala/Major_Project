@@ -13,9 +13,9 @@ const CartSummary = ({ totalAmt, discountAmt, handleProceedToCheckout, shippingC
           <span>Discount</span>
           <span>- ${discountAmt.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between mb-2">
+        <div className="flex justify-between mb-2 text-orange-500">
           <span>Shipping Charge</span>
-          <span>${shippingCharge}</span>
+          <span>+ ${shippingCharge}</span>
         </div>
         <div className="flex justify-between border-t pt-2 mt-2 font-bold">
           <span>Total</span>
