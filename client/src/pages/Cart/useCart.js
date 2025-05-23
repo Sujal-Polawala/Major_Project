@@ -88,15 +88,66 @@ const useCart = (userId) => {
     }
   };
 
-  const handleQuantityChange = async (id, quantity) => {
+  const handleQuantityChange = async (id, action) => {
     try {
-      await axios.put(`${API_BASE_URL}/api/cart/update/${id}`, { quantity });
-      setCartItems((prev) =>
-        prev.map((item) => (item._id === id ? { ...item, quantity } : item))
+      const response = await axios.get(`${API_BASE_URL}/products/${id}`);
+      const product = response.data;
+      let updatedCartItems = cartItems
+        .map((item) => {
+          if (item.productId === id) {
+            let newQuantity =
+              action === "increment" ? item.quantity + 1 : item.quantity - 1;
+
+            // Remove item immediately if quantity reaches 0
+            if (newQuantity <= 0) {
+              handleDelete(item._id); // Call delete function
+              return null; // Return null so it gets removed in filtering
+            }
+
+            // Check if requested quantity exceeds available stock
+            if (newQuantity > product.quantity) {
+              setPopup({
+                message: "",
+                type: "",
+                show: false,
+              });
+              setTimeout(() => {
+                setPopup({
+                  message: `Only ${product.quantity} items available in stock!`,
+                  type: "error",
+                  show: true,
+                });
+              }, 100);
+              return item; // Keep the existing quantity
+            }
+
+            return { ...item, quantity: newQuantity }; // Update quantity in state
+          }
+          return item;
+        })
+        .filter(Boolean); // Remove null values (deleted items)
+
+      // Update cart items state
+      setCartItems(updatedCartItems);
+
+      // Send updated quantity to backend (only if item still exists)
+      const updatedItem = updatedCartItems.find(
+        (item) => item.productId === id
       );
+      if (updatedItem) {
+        await axios.put(`${API_BASE_URL}/api/cart/update`, {
+          userId: userId,
+          productId: id,
+          quantity: updatedItem.quantity,
+        });
+      }
     } catch (error) {
-      console.error("Error updating quantity", error);
-      showPopup("Failed to update quantity", "error");
+      console.error("Error updating cart item quantity:", error);
+      setPopup({
+        message: "Error updating cart item quantity",
+        type: "error",
+        show: true,
+      });
     }
   };
 
@@ -160,7 +211,7 @@ const useCart = (userId) => {
     handleRemoveCoupon,
     handleProceedToCheckout,
     shippingCharge,
-    setShippingCharge
+    setShippingCharge,
   };
 };
 
