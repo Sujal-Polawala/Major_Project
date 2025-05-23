@@ -28,7 +28,7 @@ exports.forgotPass = async (req, res) => {
 
     // Send email with reset link
 
-    const resetLink = `http://localhost:3001/reset-password/${user._id}/${token}`;
+    const resetLink = `https://major-project-three-beta.vercel.app/reset-password/${user._id}/${token}`;
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: user.email,
