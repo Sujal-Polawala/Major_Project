@@ -11,7 +11,7 @@ from flask_socketio import SocketIO, emit
 
 # Initialize Flask app and Socket.IO
 app = Flask(__name__)
-CORS(app, resources={r"/tryon": {"origins": "*"}})
+CORS(app,supports_credentials=True, resources={r"/tryon": {"origins": "*"}})
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Initialize Mediapipe solutions
