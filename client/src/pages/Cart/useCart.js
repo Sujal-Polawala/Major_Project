@@ -9,6 +9,7 @@ const useCart = (userId) => {
   const [proceedToCheckout, setProceedToCheckout] = useState(false);
   const [totalAmt, setTotalAmt] = useState(0);
   const [discountAmt, setDiscountAmt] = useState(0);
+  const [shippingCharge, setShippingCharge] = useState(5); // default $5 shipping
   const [selectedCoupon, setSelectedCoupon] = useState(null);
   const [coupons, setCoupons] = useState([]);
 
@@ -63,7 +64,7 @@ const useCart = (userId) => {
       }
     }
 
-    setTotalAmt(subtotal - discount);
+    setTotalAmt(subtotal - discount + shippingCharge);
     setDiscountAmt(discount);
   };
 
@@ -91,9 +92,7 @@ const useCart = (userId) => {
     try {
       await axios.put(`${API_BASE_URL}/api/cart/update/${id}`, { quantity });
       setCartItems((prev) =>
-        prev.map((item) =>
-          item._id === id ? { ...item, quantity } : item
-        )
+        prev.map((item) => (item._id === id ? { ...item, quantity } : item))
       );
     } catch (error) {
       console.error("Error updating quantity", error);
@@ -119,7 +118,10 @@ const useCart = (userId) => {
     );
 
     if (subtotal < selectedCoupon.minPurchase) {
-      showPopup(`Minimum purchase must be $${selectedCoupon.minPurchase}`, "error");
+      showPopup(
+        `Minimum purchase must be $${selectedCoupon.minPurchase}`,
+        "error"
+      );
       return;
     }
 
@@ -157,6 +159,8 @@ const useCart = (userId) => {
     handleApplyCoupon,
     handleRemoveCoupon,
     handleProceedToCheckout,
+    shippingCharge,
+    setShippingCharge
   };
 };
 
