@@ -79,7 +79,7 @@ const useCart = (userId) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${API_BASE_URL}/api/cart/delete/${id}`);
+      await axios.delete(`${API_BASE_URL}/api/cart/${id}`);
       setCartItems((prev) => prev.filter((item) => item._id !== id));
       showPopup("Item removed from cart", "success");
     } catch (error) {
