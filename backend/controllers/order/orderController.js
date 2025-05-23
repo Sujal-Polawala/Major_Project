@@ -24,7 +24,7 @@ const generateInvoicePDF = async (orderId, order, filePath) => {
   }
 
   // Company Name & Address (Top Left)
-  doc.fontSize(18).text("StyleVerse", 50, 30);
+  doc.fontSize(18).text("TryNBuy", 50, 30);
   doc.fontSize(10).text("76876 Aashritha Glens,", 50, 50);
   doc.text("Pillaborough, Daman and Diu", 50, 65);
   doc.text("Phone: +91-XXXXXXXXXX", 50, 80);
