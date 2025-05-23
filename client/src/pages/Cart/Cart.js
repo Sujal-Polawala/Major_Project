@@ -9,7 +9,8 @@ import CartList from "./CartList";
 import CartSummary from "./CartSummary";
 import CouponSection from "./CouponSection";
 import useCart from "./useCart";
-import emptyCart from "../../assets/images/emptyCart.png"; // Adjust the path and filename as needed
+import emptyCart from "../../assets/images/emptyCart.png";
+import CartSkeleton from "../../skeletons/cartSkeletonCard"; // Placeholder for the skeleton loader
 
 const Cart = () => {
   const { state } = useContext(AuthContext);
@@ -49,7 +50,13 @@ const Cart = () => {
   return (
     <div className="max-w-container mx-auto px-4">
       <Breadcrumbs title="Cart" />
-      {cartItems.length > 0 ? (
+      {isLoading ? (
+        <div className="mt-10">
+          {[...Array(3)].map((_, index) => (
+            <CartSkeleton key={index} />
+          ))}
+        </div>
+      ) : cartItems.length > 0 ? (
         <>
           <CartList
             cartItems={cartItems}
