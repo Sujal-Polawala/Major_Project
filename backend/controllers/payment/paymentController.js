@@ -179,7 +179,7 @@ const sendOrderConfirmationEmail = async (email, order, payment) => {
           </div>
 
           <div style="text-align: center; margin-top: 20px;">
-            <a href="http://localhost/profile/myorders" style="background: #28a745; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">View Order</a>
+            <a href="https://major-project-three-beta.vercel.app/profile/myorders" style="background: #28a745; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">View Order</a>
           </div>
 
           <div style="text-align: center; font-size: 12px; color: #999; margin-top: 20px;">
@@ -251,8 +251,8 @@ exports.createPayment = async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: "http://localhost:3000/cancel",
+      success_url: `https://major-project-three-beta.vercel.app/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: "https://major-project-three-beta.vercel.app/cancel",
     });
 
     // Prepare cart data for the database
