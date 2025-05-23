@@ -20,34 +20,27 @@ const YearProduct = () => {
 
   return (
     <Link to="/shop">
-      <div className="w-full h-auto mb-20 rounded-lg overflow-hidden shadow-md">
+      <div className="w-full h-auto md:h-80 mb-20 bg-[#f3f3f3] relative font-titleFont rounded-lg overflow-hidden shadow-md">
         {loading ? (
           <SkeletonBanner />
         ) : (
-          <div className="flex flex-col md:flex-row h-full">
-            {/* Image Section */}
-            <div className="w-full md:w-1/2 h-80 md:h-auto">
-              <Image
-                className="w-full h-full object-cover"
-                imgSrc={productOfTheYear}
-              />
+          <>
+            <Image
+              className="w-full h-full object-cover"
+              imgSrc={productOfTheYear}
+            />
+            <div className="xl:w-fit h-80 md:w-full w-full bg-black bg-opacity-40 absolute top-0 right-0 items-start gap-6 flex flex-col justify-center p-6 md:p-12 text-white">
+              <h1 className="text-2xl md:text-4xl font-bold mb-2">
+                2025's Top Pick: Elevate Your Style
+              </h1>
+              <p className="text-sm md:text-base mb-4 max-w-2xl mr-4">
+                Discover our most popular product of the year—loved by thousands
+                for its unmatched quality and modern design. Perfect for any
+                wardrobe.
+              </p>
+              <ShopNow />
             </div>
-
-            {/* Content Section */}
-            <div className="absolute md:relative top-0 left-0 w-full h-full md:w-1/2 flex items-center justify-center bg-black bg-opacity-40 md:bg-white md:bg-opacity-100 text-white md:text-black p-6 md:p-12">
-              <div className="max-w-xl">
-                <h1 className="text-2xl md:text-4xl font-bold mb-2">
-                  2025's Top Pick: Elevate Your Style
-                </h1>
-                <p className="text-sm md:text-base mb-4">
-                  Discover our most popular product of the year—loved by thousands
-                  for its unmatched quality and modern design. Perfect for any
-                  wardrobe.
-                </p>
-                <ShopNow />
-              </div>
-            </div>
-          </div>
+          </>
         )}
       </div>
     </Link>
