@@ -29,6 +29,7 @@ const Cart = () => {
     handleApplyCoupon,
     handleRemoveCoupon,
     handleProceedToCheckout,
+    shippingCharge,
   } = useCart(userId);
 
   if (proceedToCheckout) {
@@ -74,6 +75,7 @@ const Cart = () => {
             totalAmt={totalAmt}
             discountAmt={discountAmt}
             handleProceedToCheckout={handleProceedToCheckout}
+            shippingCharge={shippingCharge}
           />
         </>
       ) : (
