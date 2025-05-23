@@ -29,7 +29,7 @@ const YearProduct = () => {
               className="w-full h-full object-cover"
               imgSrc={productOfTheYear}
             />
-            <div className="w-full h-80 md:w-2/3 xl:w-1/2 bg-black bg-opacity-40 absolute top-0 right-0 items-start gap-6 flex flex-col justify-center p-6 md:p-12 text-white">
+            <div className="w-fit h-80 md:w-2/3 xl:w-1/2 bg-black bg-opacity-40 absolute top-0 right-0 items-start gap-6 flex flex-col justify-center p-6 md:p-12 text-white">
               <h1 className="text-2xl md:text-4xl font-bold mb-2">
                 2025's Top Pick: Elevate Your Style
               </h1>
