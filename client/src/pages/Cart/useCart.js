@@ -27,7 +27,7 @@ const useCart = (userId) => {
 
     const fetchCoupons = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/api/coupons`);
+        const response = await axios.get(`${API_BASE_URL}/get-coupons`);
         setCoupons(response.data);
       } catch (error) {
         console.error("Failed to fetch coupons", error);
@@ -45,27 +45,17 @@ const useCart = (userId) => {
   }, [cartItems, selectedCoupon]);
 
   const calculateTotal = () => {
+    if (!cartItems || cartItems.length === 0) return;
+
     const subtotal = cartItems.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0
     );
 
-    let discount = 0;
-
-    if (selectedCoupon) {
-      const { type, discount: disc, minPurchase, maxDiscount } = selectedCoupon;
-
-      if (subtotal >= minPurchase) {
-        if (type === "flat") {
-          discount = Math.min(disc, maxDiscount);
-        } else if (type === "percentage") {
-          discount = Math.min((subtotal * disc) / 100, maxDiscount);
-        }
-      }
+    if (!selectedCoupon) {
+      setTotalAmt(subtotal);
+      setDiscountAmt(0);
     }
-
-    setTotalAmt(subtotal - discount);
-    setDiscountAmt(discount);
   };
 
   const clearCart = async () => {
@@ -157,7 +147,7 @@ const useCart = (userId) => {
     setSelectedCoupon(coupon || null);
   };
 
-  const handleApplyCoupon = () => {
+  const handleApplyCoupon = async () => {
     if (!selectedCoupon) {
       showPopup("Please select a coupon", "error");
       return;
@@ -168,21 +158,40 @@ const useCart = (userId) => {
       0
     );
 
-    if (subtotal < selectedCoupon.minPurchase) {
-      showPopup(
-        `Minimum purchase must be $${selectedCoupon.minPurchase}`,
-        "error"
-      );
-      return;
-    }
+    try {
+      const response = await axios.post(`${API_BASE_URL}/apply-coupon`, {
+        code: selectedCoupon.code,
+        cartTotal: subtotal,
+      });
 
-    showPopup(`Coupon ${selectedCoupon.code} applied`, "success");
-    calculateTotal();
+      if (response.data.success) {
+        setTotalAmt(response.data.finalAmount);
+        setDiscountAmt(response.data.discountAmount);
+        showPopup(
+          `Coupon applied! You saved $${response.data.discountAmount.toFixed(
+            2
+          )}`,
+          "success"
+        );
+      } else {
+        showPopup(response.data.error || "Failed to apply coupon", "error");
+      }
+    } catch (error) {
+      console.error("Error applying coupon:", error);
+      showPopup("Failed to apply coupon", "error");
+    }
   };
 
   const handleRemoveCoupon = () => {
+    const subtotal = cartItems.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+
+    setTotalAmt(subtotal);
+    setDiscountAmt(0);
     setSelectedCoupon(null);
-    showPopup("Coupon removed", "info");
+    showPopup("Coupon removed successfully", "info");
   };
 
   const handleProceedToCheckout = () => {
