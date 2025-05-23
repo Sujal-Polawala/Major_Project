@@ -64,7 +64,7 @@ const useCart = (userId) => {
       }
     }
 
-    setTotalAmt(subtotal - discount + shippingCharge);
+    setTotalAmt(subtotal - discount);
     setDiscountAmt(discount);
   };
 
