@@ -4,12 +4,12 @@ import { ImCross } from "react-icons/im";
 const ItemCard = ({ item, handleDelete, handleQuantityChange }) => {
   const handleDecrement = () => {
     if (item.quantity > 1) {
-      handleQuantityChange(item._id, item.quantity - 1);
+      handleQuantityChange(item.productId, "decrement");
     }
   };
 
   const handleIncrement = () => {
-    handleQuantityChange(item._id, item.quantity + 1);
+    handleQuantityChange(item.productId, "increment");
   };
 
   return (
