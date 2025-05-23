@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../../config/ApiConfig";
 
 const useCart = (userId) => {
   const [cartItems, setCartItems] = useState([]);
@@ -14,7 +15,7 @@ const useCart = (userId) => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const response = await axios.get(`/api/cart/${userId}`);
+        const response = await axios.get(`${API_BASE_URL}/api/cart/${userId}`);
         setCartItems(response.data);
       } catch (error) {
         console.error("Failed to fetch cart items", error);
@@ -25,7 +26,7 @@ const useCart = (userId) => {
 
     const fetchCoupons = async () => {
       try {
-        const response = await axios.get("/api/coupons");
+        const response = await axios.get(`${API_BASE_URL}/api/coupons`);
         setCoupons(response.data);
       } catch (error) {
         console.error("Failed to fetch coupons", error);
@@ -68,7 +69,7 @@ const useCart = (userId) => {
 
   const clearCart = async () => {
     try {
-      await axios.delete(`/api/cart/clear/${userId}`);
+      await axios.delete(`${API_BASE_URL}/api/cart/clear/${userId}`);
       setCartItems([]);
     } catch (error) {
       console.error("Error clearing cart", error);
@@ -77,7 +78,7 @@ const useCart = (userId) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/cart/delete/${id}`);
+      await axios.delete(`${API_BASE_URL}/api/cart/delete/${id}`);
       setCartItems((prev) => prev.filter((item) => item._id !== id));
       showPopup("Item removed from cart", "success");
     } catch (error) {
@@ -88,7 +89,7 @@ const useCart = (userId) => {
 
   const handleQuantityChange = async (id, quantity) => {
     try {
-      await axios.put(`/api/cart/update/${id}`, { quantity });
+      await axios.put(`${API_BASE_URL}/api/cart/update/${id}`, { quantity });
       setCartItems((prev) =>
         prev.map((item) =>
           item._id === id ? { ...item, quantity } : item
