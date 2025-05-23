@@ -19,7 +19,7 @@ const CartSummary = ({ totalAmt, discountAmt, handleProceedToCheckout, shippingC
         </div>
         <div className="flex justify-between border-t pt-2 mt-2 font-bold">
           <span>Total</span>
-          <span>${totalAmt.toFixed(2)}</span>
+          <span>${(totalAmt + shippingCharge).toFixed(2)}</span>    
         </div>
         <button
           onClick={handleProceedToCheckout}
