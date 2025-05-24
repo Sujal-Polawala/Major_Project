@@ -26,7 +26,7 @@ const ProfilePage = () => {
         <div className="flex flex-col md:flex-row gap-8 md:gap-10">
           {/* Sidebar */}
           <aside
-            className="w-full md:w-1/4 bg-gray-900 border border-gray-700 rounded-3xl shadow-lg p-4 sm:p-6
+            className="w-full md:w-1/4 bg-[rgba(204,207,223,0.6)] border-gray-700 rounded-3xl shadow-lg p-4 sm:p-6
             backdrop-blur-sm bg-opacity-40"
           >
             <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 tracking-widest uppercase text-cyan-400 drop-shadow-lg">
@@ -46,7 +46,7 @@ const ProfilePage = () => {
                         transition-all duration-300 relative
                         ${isActive
                           ? "text-cyan-400 bg-gray-800 shadow-lg"
-                          : "text-gray-400 hover:text-cyan-300 hover:bg-gray-800 hover:shadow-md"
+                          : "text-gray-600 hover:text-cyan-300 hover:bg-gray-800 hover:shadow-md"
                         }`}
                     >
                       {label}
@@ -62,14 +62,14 @@ const ProfilePage = () => {
 
           {/* Content */}
           <section
-            className="w-full md:w-3/4 bg-gray-900 bg-opacity-60 border border-gray-700 rounded-3xl shadow-lg p-6 sm:p-10
+            className="w-full md:w-3/4 bg-[rgba(204,207,223,0.6)] bg-opacity-60 border border-gray-700 rounded-3xl shadow-lg p-6 sm:p-10
             backdrop-blur-lg
             animate-fade-slide-up delay-150"
           >
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 tracking-wide text-gradient from-cyan-300 to-purple-600">
               Welcome Back!
             </h2>
-            <p className="text-gray-300 mb-8 sm:mb-12 text-base sm:text-lg max-w-xl">
+            <p className="text-gray-600 mb-8 sm:mb-12 text-base sm:text-lg max-w-xl">
               Explore your account settings, track your orders, and manage your preferences seamlessly.
             </p>
 
