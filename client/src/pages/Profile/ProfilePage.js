@@ -26,7 +26,7 @@ const ProfilePage = () => {
         <div className="flex flex-col md:flex-row gap-8 md:gap-10">
           {/* Sidebar */}
           <aside
-            className="w-full md:w-1/4 bg-[rgba(204,207,223,0.6)] border-gray-700 rounded-3xl shadow-lg p-4 sm:p-6
+            className="w-full md:w-1/4 bg-[rgba(204,207,223,0.6)] rounded-3xl shadow-lg p-4 sm:p-6
             backdrop-blur-sm bg-opacity-40"
           >
             <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 tracking-widest uppercase text-cyan-400 drop-shadow-lg">
@@ -62,7 +62,7 @@ const ProfilePage = () => {
 
           {/* Content */}
           <section
-            className="w-full md:w-3/4 bg-[rgba(204,207,223,0.6)] bg-opacity-60 border border-gray-700 rounded-3xl shadow-lg p-6 sm:p-10
+            className="w-full md:w-3/4 bg-[rgba(204,207,223,0.6)] bg-opacity-60 border rounded-3xl shadow-lg p-6 sm:p-10
             backdrop-blur-lg
             animate-fade-slide-up delay-150"
           >
