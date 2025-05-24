@@ -65,6 +65,26 @@ const OrderCard = ({ order, user }) => {
           </div>
         </div>
       </div>
+      <div className={`p-6 rounded-lg`}>
+        {order.items.map((item) => (
+          <div
+            key={item._id}
+            className={`flex items-center gap-6 mb-4 rounded-lg p-4`}
+          >
+            <img
+              src={item.image}
+              alt={item.title}
+              className="w-16 h-16 rounded-md"
+            />
+            <div>
+              <h4 className="text-lg font-semibold">{item.title}</h4>
+              <p className="text-sm text-gray-500">
+                ₹{item.price} × {item.quantity}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
