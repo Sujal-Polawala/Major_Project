@@ -26,7 +26,7 @@ import Shop from "./pages/Shop/Shop";
 import { AuthProvider } from "./context/AuthContext";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import MyAccount from "./pages/Profile/MyAccount";
-import MyOrder from "./pages/Profile/MyOrder";
+import MyOrder from "./pages/Profile/orders/MyOrder";
 import OrderDetails from "./pages/OrderDetails/OrderDetails";
 import ForgotPassword from "./pages/Account/ForgotPassword";
 import ResetPassword from "./pages/Account/ResetPassword";
