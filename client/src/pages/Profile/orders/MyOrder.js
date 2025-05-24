@@ -23,12 +23,8 @@ const MyOrder = () => {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-gray-800 dark:text-gray-200">
-            No user logged in.
-          </h2>
-          <p className="text-gray-500 dark:text-gray-400">
-            Please log in to view your profile.
-          </p>
+          <h2 className="text-3xl font-extrabold text-gray-800 dark:text-gray-200">No user logged in.</h2>
+          <p className="text-gray-500 dark:text-gray-400">Please log in to view your profile.</p>
         </div>
       </div>
     );
@@ -51,36 +47,12 @@ const MyOrder = () => {
         />
         {filteredOrders.length > 0 ? (
           <div className="space-y-8">
-            {filteredOrders.map((order) => (
-              <>
-                <OrderCard key={order._id} order={order} user={user} />
-                <div className={`p-6 rounded-lg`}>
-                  {order.items.map((item) => (
-                    <div
-                      key={item._id}
-                      className={`flex items-center gap-6 mb-4 rounded-lg p-4`}
-                    >
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-16 h-16 rounded-md"
-                      />
-                      <div>
-                        <h4 className="text-lg font-semibold">{item.title}</h4>
-                        <p className="text-sm text-gray-500">
-                          ₹{item.price} × {item.quantity}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            ))}
+          {filteredOrders.map((order) => (
+            <OrderCard key={order._id} order={order} user={user} />
+          ))}
           </div>
         ) : (
-          <p className="text-center text-gray-500 dark:text-gray-400">
-            No orders found.
-          </p>
+          <p className="text-center text-gray-500 dark:text-gray-400">No orders found.</p>
         )}
       </div>
     </div>
