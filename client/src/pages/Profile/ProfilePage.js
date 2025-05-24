@@ -6,10 +6,6 @@ const ProfilePage = () => {
   const [prevLocation, setPrevLocation] = useState("");
   const location = useLocation();
 
-  useEffect(() => {
-    setPrevLocation(document.referrer || "");
-  }, []);
-
   return (
     <div className="min-h-screen max-w-container mx-auto p-4 sm:p-6 bg-gray-50 text-gray-100 font-sans">
       <Breadcrumbs title="Profile Page" prevLocation={prevLocation} />
