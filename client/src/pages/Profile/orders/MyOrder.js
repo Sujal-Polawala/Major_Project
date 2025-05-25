@@ -1,14 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import useOrders from "./useOrders";
 import OrderFilter from "./OrderFilter";
 import OrderCard from "./OrderCard";
 import Breadcrumbs from "../../../components/pageProps/Breadcrumbs";
 import { PopupMsg } from "../../../components/popup/PopupMsg";
+import OrderCardSkeleton from "../../../skeletons/orderCardSkeletonCard";
 
 const MyOrder = () => {
   const { state } = useContext(AuthContext);
-  const { isLoggedIn, user } = state;
+  const [loading, setLoading] = useState(true);
+  const { user } = state;
   const {
     popup,
     prevLocation,
@@ -19,12 +21,22 @@ const MyOrder = () => {
     handleSearchTermChange,
   } = useOrders();
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000); // Simulate loading delay
+  }, []);
+
   if (!user) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-gray-800 dark:text-gray-200">No user logged in.</h2>
-          <p className="text-gray-500 dark:text-gray-400">Please log in to view your profile.</p>
+          <h2 className="text-3xl font-extrabold text-gray-800 dark:text-gray-200">
+            No user logged in.
+          </h2>
+          <p className="text-gray-500 dark:text-gray-400">
+            Please log in to view your profile.
+          </p>
         </div>
       </div>
     );
@@ -45,14 +57,22 @@ const MyOrder = () => {
           onSearchChange={handleSearchTermChange}
           onFilterChange={handleFilterChange}
         />
-        {filteredOrders.length > 0 ? (
+        {loading ? (
           <div className="space-y-8">
-          {filteredOrders.map((order) => (
-            <OrderCard key={order._id} order={order} user={user} />
-          ))}
+            {[...Array(3)].map((_, idx) => (
+              <OrderCardSkeleton key={idx} />
+            ))}
+          </div>
+        ) : filteredOrders.length > 0 ? (
+          <div className="space-y-8">
+            {filteredOrders.map((order) => (
+              <OrderCard key={order._id} order={order} user={user} />
+            ))}
           </div>
         ) : (
-          <p className="text-center text-gray-500 dark:text-gray-400">No orders found.</p>
+          <p className="text-center text-gray-500 dark:text-gray-400">
+            No orders found.
+          </p>
         )}
       </div>
     </div>
