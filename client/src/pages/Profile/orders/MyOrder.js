@@ -9,7 +9,6 @@ import OrderCardSkeleton from "../../../skeletons/orderCardSkeletonCard";
 
 const MyOrder = () => {
   const { state } = useContext(AuthContext);
-  const [loading, setLoading] = useState(true);
   const { user } = state;
   const {
     popup,
@@ -19,13 +18,8 @@ const MyOrder = () => {
     years,
     handleFilterChange,
     handleSearchTermChange,
+    isLoading,
   } = useOrders();
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000); // Simulate loading delay
-  }, []);
 
   if (!user) {
     return (
@@ -57,7 +51,7 @@ const MyOrder = () => {
           onSearchChange={handleSearchTermChange}
           onFilterChange={handleFilterChange}
         />
-        {loading ? (
+        {isLoading ? (
           <div className="space-y-8">
             {[...Array(3)].map((_, idx) => (
               <OrderCardSkeleton key={idx} />

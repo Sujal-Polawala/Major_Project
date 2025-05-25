@@ -12,6 +12,7 @@ const useOrders = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [popup, setPopup] = useState({ message: "", type: "", show: false });
   const [prevLocation, setPrevLocation] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -22,6 +23,8 @@ const useOrders = () => {
           setFilteredOrders(response.data);
         } catch (error) {
           console.error("Error fetching orders:", error);
+        } finally {
+          setIsLoading(false);
         }
       }
     };
@@ -72,6 +75,7 @@ const useOrders = () => {
     years,
     handleSearchTermChange: setSearchTerm,
     handleFilterChange: (val) => setFilter(val),
+    isLoading,
   };
 };
 
