@@ -27,7 +27,7 @@ const SpecialOffers = () => {
   }, []);
 
   const settings = {
-    infinite: false, // Change to false to test
+    infinite: true, // Change to false to test
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
