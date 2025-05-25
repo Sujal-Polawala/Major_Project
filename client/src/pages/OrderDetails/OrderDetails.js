@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Breadcrumbs from "../../components/pageProps/Breadcrumbs";
 import { API_BASE_URL } from "../../config/ApiConfig";
+import OrderDetailsSkeleton from "../../skeletons/orderDetailsSkeletonCard";
 
 function OrderDetails() {
   const { orderId } = useParams();
@@ -37,11 +38,7 @@ function OrderDetails() {
   }, [orderId]);
 
   if (isLoading) {
-    return (
-      <p className="text-center text-gray-500 text-xl">
-        Loading order details...
-      </p>
-    );
+    return <OrderDetailsSkeleton />;
   }
 
   if (error) {
@@ -74,10 +71,13 @@ function OrderDetails() {
               Order Date: {new Date(order.createdAt).toLocaleDateString()}
             </p>
             <p className="text-lg text-gray-600">
-              {order.status === "Delivered" ? 
-              `Delivered Date: ${new Date(order.deliveryDate).toLocaleDateString()} (Delivered)` :
-              `Expected Delivery Date: ${new Date(order.deliveryDate).toLocaleDateString()}`
-            }
+              {order.status === "Delivered"
+                ? `Delivered Date: ${new Date(
+                    order.deliveryDate
+                  ).toLocaleDateString()} (Delivered)`
+                : `Expected Delivery Date: ${new Date(
+                    order.deliveryDate
+                  ).toLocaleDateString()}`}
             </p>
             <p className="text-xl font-semibold text-gray-800 mt-1">
               Discount Amt: ${order.discount ? order.discount.toFixed(2) : 0}
