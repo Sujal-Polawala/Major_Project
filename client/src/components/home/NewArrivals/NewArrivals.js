@@ -29,6 +29,7 @@ const NewArrivals = () => {
   }, []);
 
   const settings = {
+    arrows: true,
     infinite: newArrival.length > 4,
     speed: 500,
     slidesToShow: newArrival.length < 4 ? newArrival.length : 4,
