@@ -17,8 +17,8 @@ const NewArrivals = () => {
       try {
         const response = await axios.get(
           `${API_BASE_URL}/api/products/glasses`
-        );
-        setNewArrival(response.data);
+        ); // Replace with your backend API URL
+        setNewArrival(response.data); // Set the fetched data to state
         setLoading(false);
       } catch (error) {
         console.error("Error fetching new arrival products", error);
@@ -29,10 +29,9 @@ const NewArrivals = () => {
   }, []);
 
   const settings = {
-    arrows: true,
-    infinite: newArrival.length > 4,
+    infinite: true, // Change to false to test
     speed: 500,
-    slidesToShow: newArrival.length < 4 ? newArrival.length : 4,
+    slidesToShow: 4,
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
@@ -40,17 +39,17 @@ const NewArrivals = () => {
       {
         breakpoint: 1025,
         settings: {
-          slidesToShow: newArrival.length < 3 ? newArrival.length : 3,
+          slidesToShow: 3,
           slidesToScroll: 1,
-          infinite: newArrival.length > 3,
+          infinite: true,
         },
       },
       {
         breakpoint: 769,
         settings: {
-          slidesToShow: newArrival.length < 2 ? newArrival.length : 2,
+          slidesToShow: 2,
           slidesToScroll: 1,
-          infinite: newArrival.length > 2,
+          infinite: true,
         },
       },
       {
@@ -58,7 +57,7 @@ const NewArrivals = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          infinite: newArrival.length > 1,
+          infinite: true,
         },
       },
     ],
@@ -75,7 +74,7 @@ const NewArrivals = () => {
               </div>
             ))
           : newArrival.map((product) => (
-              <div className="px-2" key={product._id}>
+              <div className="px-2" key={product.id}>
                 <Product
                   _id={product._id}
                   image={product.image}
