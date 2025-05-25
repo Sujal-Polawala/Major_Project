@@ -26,7 +26,7 @@ import Shop from "./pages/Shop/Shop";
 import { AuthProvider } from "./context/AuthContext";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import MyAccount from "./pages/Profile/MyAccount";
-import MyOrder from "./pages/Profile/orders/MyOrder";
+import MyOrders from "./pages/Profile/orders/MyOrder";
 import OrderDetails from "./pages/OrderDetails/OrderDetails";
 import ForgotPassword from "./pages/Account/ForgotPassword";
 import ResetPassword from "./pages/Account/ResetPassword";
@@ -57,7 +57,7 @@ const router = createBrowserRouter(
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/profile" element={<ProfilePage />}></Route>
         <Route path="/profile/myaccount" element={<MyAccount />}></Route>
-        <Route path="/profile/myorders" element={<MyOrder />}></Route>
+        <Route path="/profile/myorders" element={<MyOrders />}></Route>
         {/* ==================== Header Navlink End here ===================== */}
         <Route path="/offer" element={<Offer />}></Route>
         <Route path="/payment" element={<ShippingAddress />}></Route>
