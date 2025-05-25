@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useCallback } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../../config/ApiConfig";
 
@@ -40,11 +41,7 @@ const useCart = (userId) => {
     }
   }, [userId]);
 
-  useEffect(() => {
-    calculateTotal();
-  }, [cartItems, selectedCoupon]);
-
-  const calculateTotal = () => {
+  const calculateTotal = useCallback(() => {
     if (!cartItems || cartItems.length === 0) return;
 
     const subtotal = cartItems.reduce(
@@ -56,7 +53,11 @@ const useCart = (userId) => {
       setTotalAmt(subtotal);
       setDiscountAmt(0);
     }
-  };
+  }, [cartItems, selectedCoupon]);
+
+  useEffect(() => {
+    calculateTotal();
+  }, [cartItems, selectedCoupon, calculateTotal]);
 
   const clearCart = async () => {
     try {
