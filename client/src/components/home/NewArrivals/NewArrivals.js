@@ -31,7 +31,7 @@ const NewArrivals = () => {
   const settings = {
     infinite: true, // Change to false to test
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: newArrival.length < 4 ? newArrival.length : 4,
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
@@ -39,7 +39,7 @@ const NewArrivals = () => {
       {
         breakpoint: 1025,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: newArrival.length < 3 ? newArrival.length : 3,
           slidesToScroll: 1,
           infinite: true,
         },
@@ -47,8 +47,8 @@ const NewArrivals = () => {
       {
         breakpoint: 769,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: newArrival.length < 2 ? newArrival.length : 2,
+          slidesToScroll: 1,
           infinite: true,
         },
       },
