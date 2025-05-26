@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import os
 import cv2
 import numpy as np
 import mediapipe as mp
@@ -11,7 +12,7 @@ from flask_socketio import SocketIO, emit
 
 # Initialize Flask app and Socket.IO
 app = Flask(__name__)
-CORS(app, resources={r"/tryon": {"origins": "*"}})
+CORS(app,supports_credentials=True, resources={r"/tryon": {"origins": "*"}})
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Initialize Mediapipe solutions
@@ -244,4 +245,5 @@ def handle_tryon_request(data):
         emit('tryon_error', {'error': str(e)})
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    socketio.run(app, host='0.0.0.0', port=port, debug=True)
