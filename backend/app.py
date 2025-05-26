@@ -16,6 +16,7 @@ load_dotenv()  # Load environment variables from .env file
 # Initialize Flask app and Socket.IO
 app = Flask(__name__)
 PORT = int(os.environ.get('PORT', 5000))
+print(f"Running on port: {PORT}")
 CORS(app,supports_credentials=True, resources={r"/tryon": {"origins": "*"}})
 socketio = SocketIO(app, cors_allowed_origins="*")
 
@@ -249,4 +250,4 @@ def handle_tryon_request(data):
         emit('tryon_error', {'error': str(e)})
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=PORT, debug=True)
+    socketio.run(app, host='0.0.0.0', port=PORT, debug=False)
