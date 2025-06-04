@@ -149,7 +149,7 @@ const Product = (props) => {
         productImage: productImageBase64,
         category: props.category,
       });
-
+      console.log("Try-on request sent to server");
       tryOnSocket.on("tryon_result", (data) => {
         if (data.resultImage) {
           setTryOnImage(data.resultImage);
