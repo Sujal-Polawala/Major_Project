@@ -195,7 +195,7 @@ app.post("/tryon", async (req, res) => {
       async ({ userImage, productImage, category }) => {
         try {
           // Forward to Python backend or ML model
-          const result = await axios.post("http://localhost:5001/tryon", {
+          const result = await axios.post("https://major-project-three-beta.vercel.app/tryon", {
             userImage,
             productImage,
             category,
