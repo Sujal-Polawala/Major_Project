@@ -190,20 +190,23 @@ app.post("/tryon", async (req, res) => {
     });
 
     // ======= New: Relay tryon events between Node and Flask Socket.IO =======
-    socket.on("tryon_request", async (data) => {
-      // Forward client event to Flask
-      try {
-        const response = await axios.post(
-          `https://trynbuy-backend.onrender.com/tryon`,
-          data
-        );
-        console.log("Try-on request forwarded to Flask:", response.data);
-        socket.emit("tryon_result", response.data);
-      } catch (error) {
-        console.error("Try-on error:", error.message);
-        socket.emit("tryon_error", { error: "Try-on failed." });
+    socket.on(
+      "tryon_request",
+      async ({ userImage, productImage, category }) => {
+        try {
+          // Forward to Python backend or ML model
+          const result = await axios.post("http://localhost:5001/tryon", {
+            userImage,
+            productImage,
+            category,
+          });
+
+          socket.emit("tryon_result", { resultImage: result.data.resultImage });
+        } catch (error) {
+          socket.emit("tryon_error", { error: error.message });
+        }
       }
-    });
+    );
 
     flaskSocket.on("tryon_result", (data) => {
       // Broadcast result from Flask to all clients
