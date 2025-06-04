@@ -25,7 +25,7 @@ exports.forgotPassword = async( req , res) => {
             },
         });
 
-        const resetLink = `http://localhost:3001/reset-password/${seller._id}/${token}`
+        const resetLink = `https://trynbuy-admin.vercel.app/reset-password/${seller._id}/${token}`
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: seller.email,
