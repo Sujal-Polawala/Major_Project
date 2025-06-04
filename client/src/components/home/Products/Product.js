@@ -14,6 +14,17 @@ import { io } from "socket.io-client";
 import Loader from "../../../assets/images/Virtual clothes try loader.gif";
 import { API_BASE_URL } from "../../../config/ApiConfig";
 
+let tryOnSocket;
+
+const getTryOnSocket = () => {
+  if (!tryOnSocket) {
+    tryOnSocket = io(API_BASE_URL, {
+      transports: ["websocket"],
+    });
+  }
+  return tryOnSocket;
+};
+
 const Product = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,12 +44,6 @@ const Product = (props) => {
     show: false,
   });
   const wishlistProducts = useSelector((state) => state.orebiReducer?.wishlistProducts || []);
-  let tryOnSocket;
-  const startTryOnSocket = () => {
-    if (!tryOnSocket) {
-      tryOnSocket = io(`${API_BASE_URL}`);
-    }
-  };
 
   const handleProductDetails = () => {
     navigate(`/products/${props._id}`, {
@@ -142,22 +147,22 @@ const Product = (props) => {
 
     try {
       setLoading(true);
-      startTryOnSocket()
+      const socket = getTryOnSocket();
       const productImageBase64 = await getBase64FromUrl(props.image);
-      tryOnSocket.emit("tryon_request", {
+      socket.emit("tryon_request", {
         userImage: userImageBase64,
         productImage: productImageBase64,
         category: props.category,
       });
       console.log("Try-on request sent to server");
-      tryOnSocket.on("tryon_result", (data) => {
+      socket.on("tryon_result", (data) => {
         if (data.resultImage) {
           setTryOnImage(data.resultImage);
         }
         setLoading(false);
       })
       
-      tryOnSocket.on("tryon_error", (error) => {
+      socket.on("tryon_error", (error) => {
         console.error("Try-on error:", error);
         setLoading(false);
       });
@@ -308,4 +313,3 @@ const Product = (props) => {
 };
 
 export default Product;
-
