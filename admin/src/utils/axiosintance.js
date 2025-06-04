@@ -58,7 +58,7 @@ api.interceptors.response.use(
                 const oldRefreshToken = getStore().getState().auth.refreshToken;
 
                 // Call refresh API only once
-                const response = await axios.post("http://localhost:5000/seller-refreshtoken", {
+                const response = await axios.post("https://trynbuy-backend.onrender.com/seller-refreshtoken", {
                     refreshToken: oldRefreshToken,
                 });
 
