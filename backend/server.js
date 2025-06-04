@@ -23,7 +23,7 @@ const server = http.createServer(app);
 
 const allowedOrigins = [
   "https://major-project-three-beta.vercel.app",
-  "https://trynbuy-admin.vercel.app/", "https://trynbuy-backend.onrender.com",
+  "https://trynbuy-admin.vercel.app", "https://trynbuy-backend.onrender.com",
 ];
 
 const io = new Server(server, {
