@@ -19,7 +19,7 @@ require('dotenv').config();
 const app = express();
 const server = http.createServer(app);
 
-const allowedOrigins = ["https://major-project-three-beta.vercel.app", "http://localhost:3001"];
+const allowedOrigins = ["https://major-project-three-beta.vercel.app", "http://localhost:3001, https://trynbuy-backend.onrender.com"];
 
 const io = new Server(server, {
     cors: {
