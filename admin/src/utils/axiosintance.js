@@ -2,7 +2,7 @@ import axios from "axios";
 import { setAccessToken, logoutSeller } from "../features/authSlice";
 
 const api = axios.create({
-    baseURL: "https://trynbuy-admin.vercel.app/",
+    baseURL: "https://trynbuy-backend.onrender.com/",
     withCredentials: true,
 });
 
