@@ -1,7 +1,0 @@
-// Add this to your ESLint config if using @babel/eslint-parser
-{
-  "parser": "@babel/eslint-parser",
-  "parserOptions": {
-    "requireConfigFile": false
-  }
-}
