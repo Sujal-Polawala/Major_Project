@@ -197,6 +197,7 @@ app.post("/tryon", async (req, res) => {
           `https://trynbuy-backend.onrender.com/tryon`,
           data
         );
+        console.log("Try-on request forwarded to Flask:", response.data);
         socket.emit("tryon_result", response.data);
       } catch (error) {
         console.error("Try-on error:", error.message);
