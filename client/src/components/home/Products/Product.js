@@ -36,7 +36,7 @@ const Product = (props) => {
   let tryOnSocket;
   const startTryOnSocket = () => {
     if (!tryOnSocket) {
-      tryOnSocket = io(API_BASE_URL);
+      tryOnSocket = io(`${API_BASE_URL}`);
     }
   };
 
