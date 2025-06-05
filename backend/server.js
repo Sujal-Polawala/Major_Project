@@ -38,6 +38,7 @@ const io = new Server(server, {
 
 const corsOptions = {
   origin: function (origin, callback) {
+    console.log("Requested Origin:", origin);
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
