@@ -48,6 +48,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use("/api/stripe-webhook", bodyParser.raw({ type: "application/json" }));
 app.use(bodyParser.json({ limit: "10mb" })); // Increased limit for image data
 app.use(express.json());
