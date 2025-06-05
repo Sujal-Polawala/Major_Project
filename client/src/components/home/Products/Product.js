@@ -36,7 +36,7 @@ const Product = (props) => {
   let tryOnSocket;
   const startTryOnSocket = () => {
     if (!tryOnSocket) {
-      tryOnSocket = io("https://trynbuy-backend-myzl.onrender.com");
+      tryOnSocket = io("https://trynbuy-backend.onrender.com");
     }
   };
 

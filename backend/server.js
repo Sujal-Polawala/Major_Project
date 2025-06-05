@@ -106,7 +106,7 @@ const waitForPythonServer = () =>
 app.post("/tryon", async (req, res) => {
   try {
     const response = await axios.post(
-      `https://trynbuy-backend-myzl.onrender.com/tryon`,
+      `https://trynbuy-backend.onrender.com/tryon`,
       req.body
     );
     res.json(response.data);
@@ -120,7 +120,7 @@ app.post("/tryon", async (req, res) => {
 (async () => {
   await waitForPythonServer();
 
-  const flaskSocket = socketIoClient(`https://trynbuy-backend-myzl.onrender.com`, {
+  const flaskSocket = socketIoClient(`https://trynbuy-backend.onrender.com`, {
     transports: ["websocket"],
   });
 
@@ -195,7 +195,7 @@ app.post("/tryon", async (req, res) => {
       async ({ userImage, productImage, category }) => {
         try {
           // Forward to Python backend or ML model
-          const result = await axios.post("https://trynbuy-backend-myzl.onrender.com/tryon", {
+          const result = await axios.post("https://trynbuy-backend.onrender.com/tryon", {
             userImage,
             productImage,
             category,

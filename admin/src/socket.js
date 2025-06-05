@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const socket = io("https://trynbuy-backend-myzl.onrender.com", { withCredentials: true,
+const socket = io("https://trynbuy-backend.onrender.com", { withCredentials: true,
     autoConnect: false,
     transports: ["websocket"],
 });
