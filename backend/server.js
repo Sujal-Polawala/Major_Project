@@ -23,8 +23,7 @@ const server = http.createServer(app);
 
 const allowedOrigins = [
   "https://major-project-three-beta.vercel.app",
-  "https://trynbuy-admin.vercel.app", 
-  "https://trynbuy-backend.onrender.com",
+  "https://trynbuy-admin.vercel.app", "https://trynbuy-backend.onrender.com",
 ];
 
 const io = new Server(server, {
@@ -110,8 +109,6 @@ app.post("/tryon", async (req, res) => {
       `https://trynbuy-backend.onrender.com/tryon`,
       req.body
     );
-    console.log("Forwarded /tryon request to Flask backend");
-    console.log("Response from Flask backend:", response.data);
     res.json(response.data);
   } catch (error) {
     console.error("Error forwarding /tryon:", error.message);
@@ -198,12 +195,11 @@ app.post("/tryon", async (req, res) => {
       async ({ userImage, productImage, category }) => {
         try {
           // Forward to Python backend or ML model
-          const result = await axios.post("https://trynbuy-backend.onrender.com/tryon", {
+          const result = await axios.post("https://major-project-three-beta.vercel.app/tryon", {
             userImage,
             productImage,
             category,
           });
-          console.log("Received tryon result from Flask backend:", result.data);
 
           socket.emit("tryon_result", { resultImage: result.data.resultImage });
         } catch (error) {
