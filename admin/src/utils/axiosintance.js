@@ -2,7 +2,7 @@ import axios from "axios";
 import { setAccessToken, logoutSeller } from "../features/authSlice";
 
 const api = axios.create({
-    baseURL: "https://trynbuy-backend.onrender.com/",
+    baseURL: "https://trynbuy-backend-myzl.onrender.com/",
     withCredentials: true,
 });
 
@@ -58,7 +58,7 @@ api.interceptors.response.use(
                 const oldRefreshToken = getStore().getState().auth.refreshToken;
 
                 // Call refresh API only once
-                const response = await axios.post("https://trynbuy-backend.onrender.com/seller-refreshtoken", {
+                const response = await axios.post("https://trynbuy-backend-myzl.onrender.com/seller-refreshtoken", {
                     refreshToken: oldRefreshToken,
                 });
 

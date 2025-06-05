@@ -3,6 +3,7 @@ import { BsSuitHeartFill } from "react-icons/bs";
 import { GiReturnArrow } from "react-icons/gi";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdOutlineLabelImportant } from "react-icons/md";
+import Image from "../../designLayouts/Image";
 import Badge from "./Badge";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,18 +13,6 @@ import { AuthContext } from "../../../context/AuthContext";
 import { CartPopup, PopupMsg } from "../../popup/PopupMsg";
 import { io } from "socket.io-client";
 import Loader from "../../../assets/images/Virtual clothes try loader.gif";
-import { API_BASE_URL } from "../../../config/ApiConfig";
-
-let tryOnSocket;
-
-const getTryOnSocket = () => {
-  if (!tryOnSocket) {
-    tryOnSocket = io(API_BASE_URL, {
-      transports: ["websocket"],
-    });
-  }
-  return tryOnSocket;
-};
 
 const Product = (props) => {
   const dispatch = useDispatch();
@@ -44,6 +33,12 @@ const Product = (props) => {
     show: false,
   });
   const wishlistProducts = useSelector((state) => state.orebiReducer?.wishlistProducts || []);
+  let tryOnSocket;
+  const startTryOnSocket = () => {
+    if (!tryOnSocket) {
+      tryOnSocket = io("https://trynbuy-backend-myzl.onrender.com");
+    }
+  };
 
   const handleProductDetails = () => {
     navigate(`/products/${props._id}`, {
@@ -53,7 +48,7 @@ const Product = (props) => {
   
   const handleAddToCart = async () => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/cart`, {
+      const response = await axios.post("http://localhost:5000/api/cart", {
         productId: props._id,
         quantity: 1,
         userId: user.userId,
@@ -147,27 +142,22 @@ const Product = (props) => {
 
     try {
       setLoading(true);
-      const socket = getTryOnSocket();
+      startTryOnSocket()
       const productImageBase64 = await getBase64FromUrl(props.image);
-      socket.emit("tryon_request", {
+      tryOnSocket.emit("tryon_request", {
         userImage: userImageBase64,
         productImage: productImageBase64,
         category: props.category,
       });
-      console.log("Sending try-on request with images:", {
-        userImage: userImageBase64,
-        productImage: productImageBase64,
-        category: props.category,
-      });
-      console.log("Try-on request sent to server");
-      socket.on("tryon_result", (data) => {
+
+      tryOnSocket.on("tryon_result", (data) => {
         if (data.resultImage) {
           setTryOnImage(data.resultImage);
         }
         setLoading(false);
       })
       
-      socket.on("tryon_error", (error) => {
+      tryOnSocket.on("tryon_error", (error) => {
         console.error("Try-on error:", error);
         setLoading(false);
       });
@@ -192,7 +182,7 @@ const Product = (props) => {
     }
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/wishlist/add`,
+        "http://localhost:5000/wishlist/add",
         { 
           productId: props._id ,
           userId: user.userId
@@ -221,7 +211,7 @@ const Product = (props) => {
   const handleRemoveFromWishList =async () => {
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/wishlist/remove`,
+        "http://localhost:5000/wishlist/remove",
         { 
           productId: props._id,
           userId: user.userId

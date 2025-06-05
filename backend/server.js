@@ -38,7 +38,6 @@ const io = new Server(server, {
 
 const corsOptions = {
   origin: function (origin, callback) {
-    console.log("Requested Origin:", origin);
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -49,7 +48,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
 app.use("/api/stripe-webhook", bodyParser.raw({ type: "application/json" }));
 app.use(bodyParser.json({ limit: "10mb" })); // Increased limit for image data
 app.use(express.json());
@@ -108,7 +106,7 @@ const waitForPythonServer = () =>
 app.post("/tryon", async (req, res) => {
   try {
     const response = await axios.post(
-      `https://trynbuy-backend.onrender.com/tryon`,
+      `https://trynbuy-backend-myzl.onrender.com/tryon`,
       req.body
     );
     res.json(response.data);
@@ -122,7 +120,7 @@ app.post("/tryon", async (req, res) => {
 (async () => {
   await waitForPythonServer();
 
-  const flaskSocket = socketIoClient(`https://trynbuy-backend.onrender.com`, {
+  const flaskSocket = socketIoClient(`https://trynbuy-backend-myzl.onrender.com`, {
     transports: ["websocket"],
   });
 
@@ -197,7 +195,7 @@ app.post("/tryon", async (req, res) => {
       async ({ userImage, productImage, category }) => {
         try {
           // Forward to Python backend or ML model
-          const result = await axios.post("https://major-project-three-beta.vercel.app/tryon", {
+          const result = await axios.post("https://trynbuy-backend-myzl.onrender.com/tryon", {
             userImage,
             productImage,
             category,
