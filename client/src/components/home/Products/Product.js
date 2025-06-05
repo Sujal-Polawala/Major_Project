@@ -154,6 +154,11 @@ const Product = (props) => {
         productImage: productImageBase64,
         category: props.category,
       });
+      console.log("Sending try-on request with images:", {
+        userImage: userImageBase64,
+        productImage: productImageBase64,
+        category: props.category,
+      });
       console.log("Try-on request sent to server");
       socket.on("tryon_result", (data) => {
         if (data.resultImage) {

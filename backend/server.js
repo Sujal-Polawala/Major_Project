@@ -109,6 +109,8 @@ app.post("/tryon", async (req, res) => {
       `https://trynbuy-backend.onrender.com/tryon`,
       req.body
     );
+    console.log("Forwarded /tryon request to Flask backend");
+    console.log("Response from Flask backend:", response.data);
     res.json(response.data);
   } catch (error) {
     console.error("Error forwarding /tryon:", error.message);
@@ -200,6 +202,7 @@ app.post("/tryon", async (req, res) => {
             productImage,
             category,
           });
+          console.log("Received tryon result from Flask backend:", result.data);
 
           socket.emit("tryon_result", { resultImage: result.data.resultImage });
         } catch (error) {
