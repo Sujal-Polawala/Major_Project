@@ -13,6 +13,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import { CartPopup, PopupMsg } from "../../popup/PopupMsg";
 import { io } from "socket.io-client";
 import Loader from "../../../assets/images/Virtual clothes try loader.gif";
+import { API_BASE_URL } from "../../../config/ApiConfig";
 
 const Product = (props) => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const Product = (props) => {
   let tryOnSocket;
   const startTryOnSocket = () => {
     if (!tryOnSocket) {
-      tryOnSocket = io("https://trynbuy-backend.onrender.com");
+      tryOnSocket = io(API_BASE_URL);
     }
   };
 
@@ -48,7 +49,7 @@ const Product = (props) => {
   
   const handleAddToCart = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/cart", {
+      const response = await axios.post(`${API_BASE_URL}/api/cart`, {
         productId: props._id,
         quantity: 1,
         userId: user.userId,
