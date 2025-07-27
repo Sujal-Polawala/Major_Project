@@ -10,8 +10,6 @@ import math
 from rembg import remove
 from flask_socketio import SocketIO, emit
 from dotenv import load_dotenv
-import eventlet
-eventlet.monkey_patch()
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -252,4 +250,4 @@ def handle_tryon_request(data):
         emit('tryon_error', {'error': str(e)})
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=PORT)
+    socketio.run(app, host='0.0.0.0', port=PORT, debug=False)
